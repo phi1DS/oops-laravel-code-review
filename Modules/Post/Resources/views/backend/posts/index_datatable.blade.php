@@ -33,6 +33,9 @@
                                         @lang("post::text.name")
                                     </th>
                                     <th>
+                                        Quick edit name
+                                    </th>
+                                    <th>
                                         @lang("post::text.updated_at")
                                     </th>
                                     <th class="text-end">

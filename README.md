@@ -1,16 +1,16 @@
-### oops-laravel-code-review 
+# oops-laravel-code-review 
 
-## Looking for a better way to assess real PHP framework skills?
+### Looking for a better way to assess real PHP framework skills?
 
-## Tired of FizzBuzz, bubble sort, or palindrome challenges?
+### Tired of FizzBuzz, bubble sort, or palindrome challenges?
 
 This repository contains a deliberately flawed (but functional) PHP project, with issues in both design and security.
 Instead of solving artificial algorithm puzzles, candidates can review, critique, and suggest improvements to the code.
 
 This approach provides a much clearer picture of a developer’s understanding of modern PHP practices and frameworks.
-Because the exercise is open-ended, you can truly evaluate their expertise, gain insights into their reasoning process—and maybe even learn something new from their feedback.
+Because the exercise is open ended, you can evaluate their expertise, gain insights into their reasoning process and even learn something from their feedback.
 
-It’s a far more realistic and informative test than binary “it works / it doesn’t” problems.
+It is a far more realistic and informative test than binary “it works / it doesn’t” problems.
 
 # Installation
 
