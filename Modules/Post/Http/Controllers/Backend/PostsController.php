@@ -14,13 +14,16 @@ use Modules\Post\Enums\PostType;
 use Yajra\DataTables\DataTables;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Modules\Post\Services\SharePostToExternalApiService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class PostsController extends BackendBaseController
 {
     use Authorizable;
 
-    public function __construct()
+    protected $sharePostService;
+
+    public function __construct(SharePostToExternalApiService $sharePostService)
     {
         // Page Title
         $this->module_title = 'Posts';
@@ -36,6 +39,8 @@ class PostsController extends BackendBaseController
 
         // module model name, path
         $this->module_model = "Modules\Post\Models\Post";
+
+        $this->sharePostService = $sharePostService;
     }
 
     /**
@@ -85,6 +90,9 @@ class PostsController extends BackendBaseController
 
         $$module_name_singular = $module_model::create($data);
         $$module_name_singular->tags()->attach($request->input('tags_list'));
+
+        // service that queries another api to share article
+        $this->sharePostService->share($post);
 
         flash("New '".Str::singular($module_title)."' Added")->success()->important();
 
