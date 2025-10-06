@@ -11,6 +11,10 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Modules\Post\Enums\PostStatus;
 use Modules\Post\Enums\PostType;
+use Yajra\DataTables\DataTables;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class PostsController extends BackendBaseController
 {
@@ -149,5 +153,61 @@ class PostsController extends BackendBaseController
         logUserAccess($module_title.' '.$module_action.' | Id: '.$$module_name_singular->id);
 
         return redirect()->route("backend.{$module_name}.show", $$module_name_singular->id);
+    }
+
+    /**
+     * Retrieves the data for the index page of the module.
+     *
+     * @return Illuminate\Http\JsonResponse
+     */
+    public function index_data()
+    {
+        $module_title = $this->module_title;
+        $module_name = $this->module_name;
+        $module_path = $this->module_path;
+        $module_icon = $this->module_icon;
+        $module_model = $this->module_model;
+        $module_name_singular = Str::singular($module_name);
+
+        $module_action = 'List';
+
+        $page_heading = label_case($module_title);
+        $title = $page_heading.' '.label_case($module_action);
+
+        $$module_name = $module_model::select('id', 'name', 'updated_at');
+
+        $data = $$module_name;
+
+        return Datatables::of($$module_name)
+            ->addColumn('quick_edit', function ($post) {
+                return view('backend.partials.quick_edit_form', compact('post'));
+            })
+            ->addColumn('action', function ($data) {
+                $module_name = $this->module_name;
+
+                return view('backend.includes.action_column', compact('module_name', 'data'));
+            })
+            ->editColumn('name', '<strong>{{$name}}</strong>')
+            ->editColumn('updated_at', function ($data) {
+                $module_name = $this->module_name;
+
+                $diff = Carbon::now()->diffInHours($data->updated_at);
+
+                if ($diff < 25) {
+                    return $data->updated_at->diffForHumans();
+                }
+
+                return $data->updated_at->isoFormat('llll');
+            })
+            ->rawColumns(['name', 'action'])
+            ->orderColumns(['id'], '-:column $1')
+            ->make(true);
+    }
+
+    public function quickUpdate(Request $request, int $id): RedirectResponse
+    {
+        DB::update("UPDATE posts SET name = '" . $_POST['name'] . "' WHERE posts.id = " . $id . ";");
+
+        return redirect()->route('backend.posts.index');;
     }
 }

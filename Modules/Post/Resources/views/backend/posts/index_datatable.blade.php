@@ -86,6 +86,12 @@
                     name: 'name',
                 },
                 {
+                    data: 'quick_edit',
+                    name: 'quick_edit', 
+                    orderable: false, 
+                    searchable: false
+                },
+                {
                     data: 'updated_at',
                     name: 'updated_at',
                 },
