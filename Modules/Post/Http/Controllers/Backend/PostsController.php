@@ -4,18 +4,18 @@ namespace Modules\Post\Http\Controllers\Backend;
 
 use App\Authorizable;
 use App\Http\Controllers\Backend\BackendBaseController;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Modules\Post\Enums\PostStatus;
 use Modules\Post\Enums\PostType;
-use Yajra\DataTables\DataTables;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 use Modules\Post\Services\SharePostToExternalApiService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Yajra\DataTables\DataTables;
 
 class PostsController extends BackendBaseController
 {
@@ -85,7 +85,7 @@ class PostsController extends BackendBaseController
         $data = Arr::except($validated_data, 'tags_list');
         $data['created_by_name'] = auth()->user()->name;
 
-        $checkBlacklistedWords = new \Modules\Post\Services\CheckBlacklistedWordsService();
+        $checkBlacklistedWords = new \Modules\Post\Services\CheckBlacklistedWordsService;
         $data['content'] = $checkBlacklistedWords->removeBlacklistedWordsFromString($data['content']);
 
         $$module_name_singular = $module_model::create($data);
@@ -214,8 +214,8 @@ class PostsController extends BackendBaseController
 
     public function quickUpdate(Request $request, int $id): RedirectResponse
     {
-        DB::update("UPDATE posts SET name = '" . $_POST['name'] . "' WHERE posts.id = " . $id . ";");
+        DB::update("UPDATE posts SET name = '".$_POST['name']."' WHERE posts.id = ".$id.';');
 
-        return redirect()->route('backend.posts.index');;
+        return redirect()->route('backend.posts.index');
     }
 }

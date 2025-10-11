@@ -8,6 +8,7 @@ use Modules\Post\Models\Post;
 class SharePostToExternalApiService
 {
     protected string $endpoint;
+
     protected string $apiToken;
 
     public function __construct()
@@ -24,18 +25,18 @@ class SharePostToExternalApiService
         ]);
 
         $payload = [
-            'title'   => $post->title,
+            'title' => $post->title,
             'content' => $post->content,
-            'slug'    => $post->slug,
-            'author'  => $post->created_by_name,
+            'slug' => $post->slug,
+            'author' => $post->created_by_name,
             'published_at' => $post->published_at,
         ];
 
         Http::withHeaders([
-                'Accept' => 'application/json',
-                'Authorization' => 'Bearer ' . $this->apiToken,
-            ])
-            ->post($this->endpoint . '/posts', $payload);
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer '.$this->apiToken,
+        ])
+            ->post($this->endpoint.'/posts', $payload);
 
         return true;
     }

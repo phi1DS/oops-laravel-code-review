@@ -6,12 +6,12 @@ class CheckBlacklistedWordsService
 {
     private $blacklistedWords = [
         'Laborum',
-        'veritas'
+        'veritas',
     ];
 
     public function removeBlacklistedWordsFromString(string $string): string
     {
-        foreach($this->blacklistedWords as $blacklistedWord) {
+        foreach ($this->blacklistedWords as $blacklistedWord) {
             $string = str_replace($blacklistedWord, '', $string);
         }
 
