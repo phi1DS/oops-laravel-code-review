@@ -5,6 +5,8 @@ namespace Modules\Post\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
+use Modules\Category\Models\Category;
+use Modules\Post\Repositories\PostRepository;
 
 class PostsController extends Controller
 {
@@ -52,7 +54,8 @@ class PostsController extends Controller
 
         $module_action = 'List';
 
-        $$module_name = $module_model::latest()->paginate();
+        $category = Category::firstOrFail();
+        $$module_name = PostRepository::getByCategoryId($category->id);
 
         return view(
             "$module_path.$module_name.index",

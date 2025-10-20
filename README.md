@@ -14,17 +14,17 @@ Because the exercise is open ended, you can evaluate their expertise, gain insig
 
 # Installation
 
-Because this repository is based on 'laravel-starter', please refer to the original documentation : https://github.com/nasirkhan/laravel-starter
+Because this repository is based on 'laravel-starter', please refer to the original documentation for installation : https://github.com/nasirkhan/laravel-starter
 
 **Be sure to execute the migrations first and demo data seeding command before use.**
 
-Remove the markdown/FLAWS.md wich contains the possible solutions.
+Remove the markdown/FLAWS.md wich contains the possible solutions and the .git folder.
 
 # Use
 
 It should take about 10 to 20 minutes to complete the code review.
 
-The design flaws are located through the **Post Module ** Modules/Post/* (so that the interviewed person doesn't have to search the whole project).
+The design flaws are located through the **Post Module ./Modules/Post/** (so that the interviewed person doesn't have to search the whole project).
 
 Basic user credentials :
 
