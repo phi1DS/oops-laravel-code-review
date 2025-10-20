@@ -14,3 +14,4 @@ Design flaws:
     - Could be put into a queue to add asynchronisity to optimise performances, could be put into a post observer
 - Modules\Post\Repositories\PostRepository:
     - N + 1 database query
+    - Repository not instanciated
